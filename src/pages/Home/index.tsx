@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MdAddCircle, MdClose } from 'react-icons/md';
+import { MdAddCircle, MdClose, MdAdd } from 'react-icons/md';
 import colors from '../../styles/colors';
 import Constants from '../../constants';
 import {
@@ -17,6 +17,7 @@ import {
   Footer,
   Modal,
   Button,
+  Input,
 } from './styles';
 
 const Home: React.FC = () => {
@@ -60,11 +61,18 @@ const Home: React.FC = () => {
         </Footer>
       </Wrapper>
       <Modal
+        title=" Write down your goal "
         footer={[]}
         visible={modalState}
         onCancel={() => handleModalState(false)}
       >
-        <p> isso é uma modal</p>
+        <Input
+          suffix={
+            <Button>
+              <MdAdd color="#331CBF" size={20} />
+            </Button>
+          }
+        />
       </Modal>
     </Container>
   );

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { MdEventAvailable } from 'react-icons/md';
-import { Modal as AntdModal } from 'antd';
+import { Modal as AntdModal, Input as AntdInput } from 'antd';
+
 import colors from '../../styles/colors';
 
 export const Container = styled.div`
@@ -91,11 +92,38 @@ export const Filters = styled.div`
 `;
 
 export const Modal = styled(AntdModal)`
+  .ant-modal-close-x {
+    display: none;
+  }
+  .ant-modal-content {
+    top: 25rem;
+  }
   .ant-modal-header {
     border-bottom: none;
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 23px;
+      line-height: 29px;
+      color: ${colors.Blue};
+    }
   }
   .ant-modal-footer {
     border-top: none;
+  }
+  .ant-modal-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 0;
+    .ant-input {
+      border: none;
+      border-bottom: 1px solid #26158f;
+      border-radius: 0;
+    }
   }
 `;
 
@@ -103,4 +131,9 @@ export const Button = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  outline: none;
+  background: none;
+  border: none;
 `;
+
+export const Input = styled(AntdInput)``;
