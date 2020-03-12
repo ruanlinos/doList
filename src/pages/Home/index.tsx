@@ -32,15 +32,14 @@ type Todo = {
 };
 
 interface FormData {
-  name: string;
-  email: string;
+  todo: Object;
 }
 
 const Home: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>(Constants);
   const [modalState, setModalState] = useState<boolean>(false);
 
-  const setNewTodo = (todo: string) => {
+  const setNewTodo = (todo: any) => {
     setTodos([
       ...todos,
       {
@@ -53,7 +52,8 @@ const Home: React.FC = () => {
   };
   const formRef = useRef<FormHandles>(null);
   const handleSubmit: SubmitHandler<FormData> = data => {
-    console.log(formRef);
+    setNewTodo(data.todo);
+    setModalState(false);
   };
   return (
     <Container>
@@ -83,7 +83,7 @@ const Home: React.FC = () => {
             </FilterContainer>
 
             {todos.map(todo => (
-              <Todo>
+              <Todo key={todo.id}>
                 <p>{todo.title}</p>
                 <CreatedAt>
                   <small>{todo.createdAt}</small>
@@ -107,11 +107,11 @@ const Home: React.FC = () => {
         onCancel={() => setModalState(false)}
       >
         <Form ref={formRef} onSubmit={handleSubmit}>
-          <Input name="search" />
+          <Input name="todo" />
+          <Button type="default" htmlType="submit">
+            <MdAdd color="#331CBF" size={20} />
+          </Button>
         </Form>
-        <Button type="default">
-          <MdAdd color="#331CBF" size={20} />
-        </Button>
       </Modal>
     </Container>
   );
