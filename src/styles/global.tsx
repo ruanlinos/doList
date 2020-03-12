@@ -3,7 +3,7 @@ import Colors from './colors';
 
 export default createGlobalStyle`
 /* Reset CSS: */
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700&display=swap');
   * {
     margin: 0;
     padding: 0;

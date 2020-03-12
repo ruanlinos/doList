@@ -4,15 +4,19 @@ import { Modal as AntdModal, Input as AntdInput } from 'antd';
 
 import colors from '../../styles/colors';
 
+interface ButtonProps {
+  active: boolean;
+}
+
 export const Container = styled.div`
   display: flex;
   width: 100%;
-  align-items: center;
   justify-content: center;
   height: 100vh;
 `;
 export const Wrapper = styled.div`
   max-width: 600px;
+  margin-top: 121px;
 `;
 export const Title = styled.h1`
   margin: 30px 0 20px 0;
@@ -44,27 +48,20 @@ export const Person = styled.div`
 `;
 export const Content = styled.div``;
 export const Footer = styled.div`
+  margin-top: 223px;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  button {
-    width: 40px;
-    height: 40px;
-    border: none;
-    background: none !important;
-  }
 `;
 export const Todo = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  p {
-    font-weight: 600;
-    font-size: 18px;
-    line-height: 23px;
-  }
+  margin-bottom: 20px;
+  line-height: 23px;
+  margin-bottom: 0 !important;
 `;
 export const CreatedAt = styled.div`
   display: flex;
@@ -80,14 +77,13 @@ export const CreatedAt = styled.div`
 export const Calendar = styled(MdEventAvailable)`
   margin: 0 20px 0 5px;
 `;
-export const Filters = styled.div`
+export const FilterContainer = styled.div`
   display: flex;
   justify-content: center;
   margin: 24px 0 56px 0;
   p {
-    &:nth-child(2) {
-      margin: 0 50px;
-    }
+    font-weight: bold;
+    margin-bottom: 0 !important;
   }
 `;
 
@@ -98,19 +94,19 @@ export const Modal = styled(AntdModal)`
   .ant-modal-content {
     top: 25rem;
   }
-  .ant-modal-header {
-    border-bottom: none;
-    div {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-style: normal;
-      font-weight: bold;
-      font-size: 23px;
-      line-height: 29px;
-      color: ${colors.Blue};
-    }
+  border-bottom: none;
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 23px;
+    line-height: 29px;
+    color: ${colors.Blue};
   }
+
   .ant-modal-footer {
     border-top: none;
   }
@@ -127,13 +123,31 @@ export const Modal = styled(AntdModal)`
   }
 `;
 
-export const Button = styled.button`
+export const AddButton = styled.button`
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  background: ${colors.Blue};
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: none;
+`;
+
+export const Input = styled(AntdInput)``;
+
+export const Filter = styled.button<ButtonProps>`
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   outline: none;
   background: none;
   border: none;
-`;
 
-export const Input = styled(AntdInput)``;
+  &:nth-child(2) {
+    padding: 0 50px;
+  }
+`;
