@@ -75,7 +75,7 @@ export default function Shorcuts() {
       </IconContainer>
       <Wrapper visible={visible}>
         <KeyContent>
-          <Key>;</Key>
+          <Key>Ctrl</Key>
           <KeyFunction>Add new todo</KeyFunction>
         </KeyContent>
         <KeyContent>
