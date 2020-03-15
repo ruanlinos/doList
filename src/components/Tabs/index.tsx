@@ -187,8 +187,6 @@ export const Tabs: React.FC = () => {
     const sortedArray: any = createdAtSort(newArray);
 
     setTodos(sortedArray);
-
-    // alterar estado do todo
   }
   const removeTodo = (id: number) => {
     setTodos(todos.filter(todo => todo.id !== id));
