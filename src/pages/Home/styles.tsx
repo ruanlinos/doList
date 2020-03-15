@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import { MdEventAvailable } from 'react-icons/md';
-import { Modal as AntdModal, Input as AntdInput } from 'antd';
-
+import { Modal as AntdModal } from 'antd';
+import CheckBoxAnimated from 'react-animated-checkbox';
+import { Form as Unform } from '@unform/web';
 import colors from '../../styles/colors';
 
 interface ButtonProps {
@@ -62,6 +63,9 @@ export const Todo = styled.div`
   margin-bottom: 20px;
   line-height: 23px;
   margin-bottom: 0 !important;
+  p {
+    margin-bottom: 0;
+  }
 `;
 export const CreatedAt = styled.div`
   display: flex;
@@ -92,7 +96,12 @@ export const Modal = styled(AntdModal)`
     display: none;
   }
   .ant-modal-content {
-    top: 25rem;
+    width: 100%;
+    max-width: 757px;
+    max-height: 204px;
+  }
+  .ant-modal-header {
+    border-bottom: 1px solid transparent;
   }
   border-bottom: none;
   div {
@@ -115,6 +124,10 @@ export const Modal = styled(AntdModal)`
     align-items: center;
     justify-content: center;
     padding-bottom: 0;
+    width: 100%;
+    form {
+      width: 100%;
+    }
     .ant-input {
       border: none;
       border-bottom: 1px solid #26158f;
@@ -136,8 +149,6 @@ export const AddButton = styled.button`
   border: none;
 `;
 
-export const Input = styled(AntdInput)``;
-
 export const Filter = styled.button<ButtonProps>`
   cursor: pointer;
   display: flex;
@@ -149,5 +160,18 @@ export const Filter = styled.button<ButtonProps>`
 
   &:nth-child(2) {
     padding: 0 50px;
+  }
+`;
+
+export const CheckBox = styled(CheckBoxAnimated)``;
+
+export const Form = styled(Unform)`
+  display: flex;
+  width: 100%;
+  max-width: 638px !important;
+  border-bottom: 1px solid #26158f;
+  button {
+    border: none;
+    background: none;
   }
 `;

@@ -13,6 +13,15 @@ export default createGlobalStyle`
   }
   html {
     font-size: 62.5%;
+      .ant-modal {
+    margin: 0 !important;
+    width: 100% !important;
+    display: flex;
+    justify-content: center;
+    padding: 0 10px;
+    align-items: center;
+    top: 300px !important;
+  }
   }
 
   body {

@@ -1,20 +1,20 @@
 export default [
   {
-    id: Date.now(),
+    id: Math.random(),
     title: 'My first To-Do',
-    createdAt: '03-03-2019',
+    createdAt: new Date(),
     done: true,
   },
   {
-    id: Date.now(),
+    id: Math.random(),
     title: 'My Second To-Do',
-    createdAt: '03-04-2019',
+    createdAt: new Date(),
     done: false,
   },
   {
-    id: Date.now(),
+    id: Math.random(),
     title: 'My Third To-Do',
-    createdAt: '03-05-2019',
+    createdAt: new Date(),
     done: false,
   },
 ];
