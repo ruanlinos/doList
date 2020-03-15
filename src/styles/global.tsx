@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import Colors from './colors';
+import 'react-perfect-scrollbar/dist/css/styles.css';
 
 export default createGlobalStyle`
 /* Reset CSS: */

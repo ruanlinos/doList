@@ -1,6 +1,8 @@
 /* eslint-disable no-unused-expressions */
 import React, { useState, useRef, useEffect } from 'react';
 import createPersistedState from 'use-persisted-state';
+import { Scrollbars } from 'react-custom-scrollbars';
+import QueueAnim from 'rc-queue-anim';
 import * as R from 'ramda';
 import { MdClose, MdEventAvailable, MdAdd } from 'react-icons/md';
 import styled from 'styled-components';
@@ -26,13 +28,14 @@ export const Todo = styled.div`
   align-items: center;
   margin-bottom: 20px;
   line-height: 23px;
-  margin-bottom: 0 !important;
+  margin-bottom: 10px !important;
   p {
     margin-bottom: 0;
   }
 `;
+
 export const Footer = styled.div`
-  margin-top: 223px;
+  margin-top: 50px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -82,6 +85,14 @@ export const Modal = styled(AntdModal)`
     }
   }
 `;
+export const TodoName = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  p {
+    margin-left: 8px;
+  }
+`;
 export const Form = styled(Unform)`
   display: flex;
   width: 100%;
@@ -106,8 +117,9 @@ export const AddButton = styled.button`
 `;
 export const CreatedAt = styled.div`
   display: flex;
+  width: 100%;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   small {
     font-weight: 600;
     font-size: 12px;
@@ -115,14 +127,20 @@ export const CreatedAt = styled.div`
     color: ${colors.DarkGray};
   }
   button {
+    display: flex;
+    align-items: center;
     border: none;
     background: none;
+    margin-right: 10px;
   }
 `;
 export const Calendar = styled(MdEventAvailable)`
-  margin: 0 20px 0 5px;
+  margin: 0 10px 0 5px;
 `;
+export const TodoContent = styled(Scrollbars)``;
+
 export const CheckBox = styled(CheckBoxAnimated)``;
+
 export const Tabs: React.FC = () => {
   const useCounterState = createPersistedState('todos');
   const formRef = useRef<FormHandles>(null);
@@ -187,7 +205,7 @@ export const Tabs: React.FC = () => {
       });
 
       setNewTodo(data?.todo);
-
+      setModalState(false);
       formRef.current?.reset();
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
@@ -205,15 +223,19 @@ export const Tabs: React.FC = () => {
     }
   };
   const [tabs, setTabs] = useState<TTab>('all');
+
   const keyDone = useKeyPress('d');
   const keyAll = useKeyPress('a');
   const keyTodo = useKeyPress('t');
 
   useEffect(() => {
-    keyDone && setTabs('done');
-    keyAll && setTabs('all');
-    keyTodo && setTabs('todo');
-  }, [keyDone, keyAll, keyTodo]);
+    if (!modalState) {
+      keyDone && setTabs('done');
+      keyAll && setTabs('all');
+      keyTodo && setTabs('todo');
+    }
+  }, [keyAll, keyDone, keyTodo, modalState]);
+
   return (
     <>
       <FilterContainer>
@@ -227,84 +249,101 @@ export const Tabs: React.FC = () => {
           <p>Done</p>
         </Filter>
       </FilterContainer>
-      {tabs === 'todo' &&
-        filterTodo &&
-        filterTodo.map(todo => (
-          <Todo key={todo.id}>
-            <CheckBox
-              checked={todo.done}
-              checkBoxStyle={{
-                checkedColor: '#34b93d',
-                size: 20,
-                unCheckedColor: '#b8b8b8',
-              }}
-              duration={400}
-              onClick={() => toggleTodoState(todo.id)}
-            />
-            <p>{todo.title}</p>
-            <CreatedAt>
-              <small>
-                {formatDistance(new Date(todo.createdAt), new Date())}
-              </small>
-              <Calendar color={colors.DarkGray} />
-              <button onClick={() => removeTodo(todo.id)} type="button">
-                <MdClose color="#F56A6A" />
-              </button>
-            </CreatedAt>
-          </Todo>
-        ))}
-      {tabs === 'all' &&
-        todos &&
-        todos.map(todo => (
-          <Todo key={todo.id}>
-            <CheckBox
-              checked={todo.done}
-              checkBoxStyle={{
-                checkedColor: '#34b93d',
-                size: 20,
-                unCheckedColor: '#b8b8b8',
-              }}
-              duration={400}
-              onClick={() => toggleTodoState(todo.id)}
-            />
-            <p>{todo.title}</p>
-            <CreatedAt>
-              <small>
-                {formatDistance(new Date(todo.createdAt), new Date())}
-              </small>
-              <Calendar color={colors.DarkGray} />
-              <button onClick={() => removeTodo(todo.id)} type="button">
-                <MdClose color="#F56A6A" />
-              </button>
-            </CreatedAt>
-          </Todo>
-        ))}
-      {tabs === 'done' &&
-        filterDone &&
-        filterDone.map(todo => (
-          <Todo key={todo.id}>
-            <CheckBox
-              checked={todo.done}
-              checkBoxStyle={{
-                checkedColor: '#34b93d',
-                size: 20,
-                unCheckedColor: '#b8b8b8',
-              }}
-              duration={400}
-              onClick={() => toggleTodoState(todo.id)}
-            />
-            <p>{todo.title}</p>
-            <CreatedAt>
-              <small>
-                {formatDistance(new Date(todo.createdAt), new Date())}
-              </small>
-              <Calendar color={colors.DarkGray} />
-              <button onClick={() => removeTodo(todo.id)} type="button">
-                <MdClose color="#F56A6A" />
-              </button>
-            </CreatedAt>
-          </Todo>
-        ))}
+      <TodoContent style={{ width: 593, height: 300 }} autoHide>
+        <QueueAnim>
+          {tabs === 'todo' &&
+            filterTodo &&
+            filterTodo.map(todo => (
+              <Todo key={todo.id}>
+                <TodoName>
+                  <CheckBox
+                    checked={todo.done}
+                    checkBoxStyle={{
+                      checkedColor: '#26158f',
+                      size: 15,
+                      unCheckedColor: '#b8b8b8',
+                    }}
+                    duration={400}
+                    onClick={() => toggleTodoState(todo.id)}
+                  />
+
+                  <p>{todo.title}</p>
+                </TodoName>
+                <CreatedAt>
+                  <small>
+                    {formatDistance(new Date(todo.createdAt), new Date())}
+                  </small>
+                  <Calendar color={colors.DarkGray} />
+                  <button onClick={() => removeTodo(todo.id)} type="button">
+                    <MdClose color="#F56A6A" />
+                  </button>
+                </CreatedAt>
+              </Todo>
+            ))}
+        </QueueAnim>
+        <QueueAnim>
+          {tabs === 'all' &&
+            todos &&
+            todos.map(todo => (
+              <Todo key={todo.id}>
+                <TodoName>
+                  <CheckBox
+                    checked={todo.done}
+                    checkBoxStyle={{
+                      checkedColor: '#26158f',
+                      size: 15,
+                      unCheckedColor: '#b8b8b8',
+                    }}
+                    duration={400}
+                    onClick={() => toggleTodoState(todo.id)}
+                  />
+
+                  <p>{todo.title}</p>
+                </TodoName>
+                <CreatedAt>
+                  <small>
+                    {formatDistance(new Date(todo.createdAt), new Date())}
+                  </small>
+                  <Calendar color={colors.DarkGray} />
+                  <button onClick={() => removeTodo(todo.id)} type="button">
+                    <MdClose color="#F56A6A" />
+                  </button>
+                </CreatedAt>
+              </Todo>
+            ))}
+        </QueueAnim>
+        <QueueAnim>
+          {tabs === 'done' &&
+            filterDone &&
+            filterDone.map(todo => (
+              <Todo key={todo.id}>
+                <TodoName>
+                  <CheckBox
+                    checked={todo.done}
+                    checkBoxStyle={{
+                      checkedColor: '#26158f',
+                      size: 15,
+                      unCheckedColor: '#b8b8b8',
+                    }}
+                    duration={400}
+                    onClick={() => toggleTodoState(todo.id)}
+                  />
+
+                  <p>{todo.title}</p>
+                </TodoName>
+                <CreatedAt>
+                  <small>
+                    {formatDistance(new Date(todo.createdAt), new Date())}
+                  </small>
+                  <Calendar color={colors.DarkGray} />
+                  <button onClick={() => removeTodo(todo.id)} type="button">
+                    <MdClose color="#F56A6A" />
+                  </button>
+                </CreatedAt>
+              </Todo>
+            ))}
+        </QueueAnim>
+      </TodoContent>
       <Footer>
         <AddButton onClick={() => handleModalState()}>
           <MdAdd color="#fff" size={28} onClick={() => setModalState(true)} />
