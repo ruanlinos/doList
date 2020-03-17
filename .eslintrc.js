@@ -18,13 +18,7 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  plugins: [
-    'react',
-    '@typescript-eslint',
-    'import',
-    'react-hooks',
-    'prettier',
-  ],
+  plugins: ['react', '@typescript-eslint', 'import', 'react-hooks', 'prettier'],
   rules: {
     'prettier/prettier': 'error',
     'react/jsx-filename-extension': [
@@ -33,6 +27,7 @@ module.exports = {
         extensions: ['.tsx', '.ts', '.js', '.jsx'],
       },
     ],
+    'react/prop-types': 'off',
     'import/prefer-default-export': 'off',
     'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     'react/jsx-one-expression-per-line': 'off',
@@ -48,17 +43,16 @@ module.exports = {
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': 'error',
 
-      "import/extensions": [
-         "error",
-         "ignorePackages",
-         {
-           "js": "never",
-           "jsx": "never",
-           "ts": "never",
-           "tsx": "never"
-         }
-      ]
-
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
+    ],
   },
   settings: {
     'import/resolver': {

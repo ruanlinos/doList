@@ -37,7 +37,7 @@ export const Filter = styled.button<ButtonProps>`
   &::after {
     content: '';
     position: absolute;
-    background-color: #331cbf;
+    background-color: ${colors.Blue};
     bottom: 0;
     left: 0;
     width: 100%;
@@ -121,7 +121,7 @@ export const Modal = styled(AntdModal)`
     }
     .ant-input {
       border: none;
-      border-bottom: 1px solid #26158f;
+      border-bottom: 1px solid ${colors.Blue};
       border-radius: 0;
     }
   }
@@ -138,7 +138,7 @@ export const Form = styled(Unform)`
   display: flex;
   width: 100%;
   max-width: 638px !important;
-  border-bottom: 1px solid #26158f;
+  border-bottom: 1px solid ${colors.Blue};
   button {
     border: none;
     background: none;
