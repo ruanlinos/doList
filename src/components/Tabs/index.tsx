@@ -1,145 +1,33 @@
 /* eslint-disable no-unused-expressions */
 import React, { useState, useRef, useEffect } from 'react';
 import createPersistedState from 'use-persisted-state';
-import { Scrollbars } from 'react-custom-scrollbars';
 import QueueAnim from 'rc-queue-anim';
 import * as R from 'ramda';
-import { MdClose, MdEventAvailable, MdAdd } from 'react-icons/md';
-import styled from 'styled-components';
-import { Form as Unform } from '@unform/web';
-import { Modal as AntdModal } from 'antd';
-import CheckBoxAnimated from 'react-animated-checkbox';
+import { MdClose, MdAdd } from 'react-icons/md';
 import formatDistance from 'date-fns/formatDistance';
 import * as Yup from 'yup';
 import { SubmitHandler, FormHandles } from '@unform/core';
 import Input from '../Input';
 import Constants from '../../constants';
-import { FilterContainer, Filter } from './styles';
+import {
+  FilterContainer,
+  Filter,
+  Todo,
+  Footer,
+  Modal,
+  TodoName,
+  Form,
+  AddButton,
+  CreatedAt,
+  Calendar,
+  TodoContent,
+  CheckBox,
+} from './styles';
 import useKeyPress from '../../hooks/useKeyPress';
 import { TTodo } from '../../pages/Home';
 import colors from '../../styles/colors';
 
 type TTab = 'all' | 'todo' | 'done';
-
-export const Todo = styled.div`
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  line-height: 23px;
-  margin-bottom: 10px !important;
-  p {
-    margin-bottom: 0;
-  }
-`;
-
-export const Footer = styled.div`
-  margin-top: 50px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-export const Modal = styled(AntdModal)`
-  .ant-modal-close-x {
-    display: none;
-  }
-  .ant-modal-content {
-    width: 100%;
-    max-width: 757px;
-    max-height: 204px;
-  }
-  .ant-modal-header {
-    border-bottom: 1px solid transparent;
-  }
-  border-bottom: none;
-  div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 23px;
-    line-height: 29px;
-    color: ${colors.Blue};
-  }
-
-  .ant-modal-footer {
-    border-top: none;
-  }
-  .ant-modal-body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-bottom: 0;
-    width: 100%;
-    form {
-      width: 100%;
-    }
-    .ant-input {
-      border: none;
-      border-bottom: 1px solid #26158f;
-      border-radius: 0;
-    }
-  }
-`;
-export const TodoName = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  p {
-    margin-left: 8px;
-  }
-`;
-export const Form = styled(Unform)`
-  display: flex;
-  width: 100%;
-  max-width: 638px !important;
-  border-bottom: 1px solid #26158f;
-  button {
-    border: none;
-    background: none;
-  }
-`;
-export const AddButton = styled.button`
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  outline: none;
-  background: ${colors.Blue};
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  border: none;
-`;
-export const CreatedAt = styled.div`
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: flex-end;
-  small {
-    font-weight: 600;
-    font-size: 12px;
-    line-height: 15px;
-    color: ${colors.DarkGray};
-  }
-  button {
-    display: flex;
-    align-items: center;
-    border: none;
-    background: none;
-    margin-right: 10px;
-  }
-`;
-export const Calendar = styled(MdEventAvailable)`
-  margin: 0 10px 0 5px;
-`;
-export const TodoContent = styled(Scrollbars)``;
-
-export const CheckBox = styled(CheckBoxAnimated)``;
 
 export const Tabs: React.FC = () => {
   const useCounterState = createPersistedState('todos');

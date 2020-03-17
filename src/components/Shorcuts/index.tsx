@@ -59,6 +59,7 @@ export const KeyFunction = styled.div`
 `;
 
 export const IconContainer = styled.div`
+  cursor: pointer;
   position: fixed;
   right: 50px;
   top: 25px;
